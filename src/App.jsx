@@ -19,7 +19,7 @@ function App() {
     setMessages(newMessages)
 
     try {
-      const response = await fetch("https://hr-assistant-api-dxm6.onrender.com/ask", {
+      const response = await fetch("http://localhost:8000/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
