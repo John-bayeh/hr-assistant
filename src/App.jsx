@@ -43,9 +43,32 @@ function App() {
     }
   }
 
+  const clearChat = () => {
+    setMessages([])
+    localStorage.removeItem("chat_history")
+  }
+
   return (
     <div style={{ maxWidth: "600px", margin: "50px auto", padding: "20px" }}>
-      <h1>HR Assistant</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>HR Assistant</h1>
+        {messages.length > 0 && (
+          <button
+            onClick={clearChat}
+            style={{
+              padding: "6px 12px",
+              background: "#ef4444",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "12px"
+            }}
+          >
+            Clear Chat
+          </button>
+        )}
+      </div>
       <div style={{ minHeight: "300px", marginBottom: "20px" }}>
         {messages.map((msg, i) => (
           <div key={i} style={{
