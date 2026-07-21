@@ -19,7 +19,8 @@ function App() {
     setMessages(newMessages)
 
     try {
-      const response = await fetch("http://localhost:8000/ask", {
+      const backendUrl = import.meta.env.VITE_API_URL || "https://hr-assistant-api-dxm6.onrender.com"
+      const response = await fetch(`${backendUrl}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
