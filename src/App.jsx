@@ -5,7 +5,9 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [messages, setMessages] = useState(() => {
     const saved = localStorage.getItem("chat_history")
-    return saved ? JSON.parse(saved) : []
+    if (!saved) return []
+    const parsed = JSON.parse(saved)
+    return parsed.filter((msg) => !msg.content.startsWith("Error:"))
   })
 
   const askQuestion = async () => {
@@ -35,9 +37,8 @@ function App() {
       localStorage.setItem("chat_history", JSON.stringify(updatedMessages))
 
     } catch (error) {
-      const updatedMessages = [...newMessages, { role: "ai", content: "Error: Could not connect to server" }]
-      setMessages(updatedMessages)
-      localStorage.setItem("chat_history", JSON.stringify(updatedMessages))
+      setMessages([...newMessages, { role: "ai", content: "Error: Could not connect to server" }])
+      // Note: do not save errors to localStorage
     } finally {
       setLoading(false)
     }
